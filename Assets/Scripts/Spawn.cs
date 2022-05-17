@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject _enemyPrefab;
 
     private bool _canSpawn = true;
-    private int number = 0;
+    private int _number = 0;
 
     private void Update()
     {
@@ -15,11 +15,11 @@ public class Spawn : MonoBehaviour
         {
             int count = transform.childCount;
 
-            if (number >= count)
-                number = 0;
+            if (_number >= count)
+                _number = 0;
             
-            enemyPrefab.transform.position = transform.GetChild(number).transform.position;
-            Object.Instantiate(enemyPrefab);
+            _enemyPrefab.transform.position = transform.GetChild(_number).transform.position;
+            Object.Instantiate(_enemyPrefab);
             _canSpawn = false;
             StartCoroutine(Pause());
         }
@@ -29,7 +29,7 @@ public class Spawn : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         _canSpawn = true;
-        number++;
+        _number++;
     }
 
 }
