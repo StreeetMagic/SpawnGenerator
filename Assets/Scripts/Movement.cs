@@ -5,7 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed = 3;
-    
+
     void Update()
     {
         Transform _target = GameObject.Find("Finish").transform;
