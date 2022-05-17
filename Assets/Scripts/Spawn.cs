@@ -4,32 +4,31 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefab;
 
-    private bool _canSpawn = true;
+    [SerializeField] Enemy _enemyPrefab;
+
     private int _number = 0;
 
-    private void Update()
+    private void Start()
     {
-        if (_canSpawn)
-        {
-            int count = transform.childCount;
+        StartCoroutine(Begin());
+    }
 
+    private IEnumerator Begin()
+    {
+        int count = transform.childCount;
+        bool isFinished = false;
+        int delay = 2;
+
+        while (isFinished != true)
+        {
             if (_number >= count)
                 _number = 0;
             
-            _enemyPrefab.transform.position = transform.GetChild(_number).transform.position;
-            Object.Instantiate(_enemyPrefab);
-            _canSpawn = false;
-            StartCoroutine(Pause());
+            Enemy enemy = Instantiate(_enemyPrefab);
+            enemy.transform.position = transform.GetChild(_number).transform.position;
+            _number++;
+            yield return new WaitForSeconds(delay);
         }
     }
-
-    private IEnumerator Pause()
-    {
-        yield return new WaitForSeconds(2);
-        _canSpawn = true;
-        _number++;
-    }
-
 }
