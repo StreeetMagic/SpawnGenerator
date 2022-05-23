@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawn : MonoBehaviour
 {
 
-    [SerializeField] Enemy _enemyPrefab;
+    [SerializeField] private Enemy _enemy;
 
     private int _number = 0;
 
@@ -25,9 +25,11 @@ public class Spawn : MonoBehaviour
             if (_number >= count)
                 _number = 0;
             
-            Enemy enemy = Instantiate(_enemyPrefab);
-            enemy.transform.position = transform.GetChild(_number).transform.position;
+            Instantiate(_enemy);
+
+            _enemy.transform.position = transform.GetChild(_number).transform.position;
             _number++;
+
             yield return new WaitForSeconds(delay);
         }
     }
